@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cqhttpserver
+  labels:
+    app: cqhttpserver
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  minReadySeconds: 15
+  selector:
+    matchLabels:
+      app: cqhttpserver
+  template:
+    metadata:
+      labels:
+        app: cqhttpserver
+    spec:
+      containers:
+        - name: cqhttpserver
+          image: jiajia1003/cncamp:v0.1
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          # 优雅启动
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 9999
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          # 探活
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 9999
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            successThreshold: 2
