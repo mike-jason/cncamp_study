@@ -1,0 +1,2 @@
+1.httpserver部署使用的deployment+service方式，deployment中实现了优雅启动和探活功能。
+2.代码中通过listenSignal()函数通过监听os.Signal实现优雅终止
