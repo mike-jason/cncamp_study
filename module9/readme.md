@@ -1,5 +1,6 @@
 # 1.重新修改deployment的yaml，实现了日常运维需求，日志等级
 k create  -f env_cqhttpserver.yaml
+
 k apply -f deployment_cqhttpserver.yaml
 # 2.建立ingress控制平面
  k create -f nginx-ingress-deployment.yaml
