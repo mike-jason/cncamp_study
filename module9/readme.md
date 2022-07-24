@@ -10,3 +10,4 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt
 kubectl create secret tls cqhttp-tls --cert=./tls.crt --key=./tls.key
 # 5.创建ingress
 kubectl create -f ingress_cqhttpserver.yaml
+# 6.service沿用的上个模块中的文件service.yaml
