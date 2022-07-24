@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cqhttpserver
+  labels:
+    app: cqhttpserver
+spec:
+  selector:
+    app: cqhttpserver
+  ports:
+    - name: cqhttpserver
+      port: 9999 
+      targetPort: 9999
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 443
+      protocol: TCP
+  externalIPs:
+    - 172.21.0.9
