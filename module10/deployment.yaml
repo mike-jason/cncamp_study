@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cqhttpserver-metrics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cqhttpserver-metrics
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9999"
+      labels:
+        app: cqhttpserver-metrics
+    spec:
+      containers:
+        - name: cqhttpserver-metrics
+          image: cncamp/cqhttpserver:v1.2-metrics
+          ports:
+            - containerPort: 9999
