@@ -1,0 +1,35 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: cqhttpsserver
+spec:
+  gateways:
+    - cqhttpsserver
+  hosts:
+    - cqhttpsserver.cncamp.io
+  http:
+    - match:
+        - port: 443
+      route:
+        - destination:
+            host: cqhttpserver.jiajia.svc.cluster.local
+            port:
+              number: 80
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: cqhttpsserver
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - cqhttpsserver.cncamp.io
+      port:
+        name: https-default
+        number: 443
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: cncamp-credential

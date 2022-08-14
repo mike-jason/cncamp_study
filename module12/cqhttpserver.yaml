@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cqhttpserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cqhttpserver
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "80"
+      labels:
+        app: cqhttpserver
+    spec:
+      containers:
+        - name: cqhttpserver
+          imagePullPolicy: Always
+          image: jiajia1003/cncamp:v1.2-metrics
+          ports:
+            - containerPort: 9999
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cqhttpserver
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 9999
+  selector:
+    app: cqhttpserver

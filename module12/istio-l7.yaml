@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: cqhttpsserver-l7
+spec:
+  gateways:
+    - cqhttpsserver
+  hosts:
+    - cqhttpsserver.cncamp.io
+  http:
+    - match:
+        - uri:
+            exact: "/l7/hello"
+      rewrite:
+        uri: "/hello"
+      route:
+        - destination:
+            host: cqhttpserver.jiajia.svc.cluster.local
+            port:
+              number: 80
