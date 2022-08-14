@@ -57,3 +57,7 @@ hello [stranger]
 %!(EXTRA string=X-Envoy-Original-Path, []string=[/l7/hello])#{k}=#{v}
 %!(EXTRA string=X-Forwarded-Client-Cert, []string=[By=spiffe://cluster.local/ns/jiajia/sa/default;Hash=f9fb22c2eb14554c4385624a4c0d8fce48443596af5c8a68042d2bb2ff9585b1;Subject="";URI=spiffe://cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account])
 ```
+#Tracing
+```shell
+kubectl apply -f jaeger.yaml
+```
